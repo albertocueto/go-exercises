@@ -2,6 +2,13 @@ package main
 
 import "fmt"
 
+type Pipeline struct {
+	In  chan<- *string
+	Out <-chan *string
+}
+
+type PipelineMap map[string]map[string]*Pipeline
+
 func main() {
 	// Maps are unordered lists of key, value pairs
 	// COMPOSITE LITERAL
@@ -61,4 +68,29 @@ func main() {
 	}
 
 	fmt.Println(m)
+
+	improvedPipelines := PipelineMap{
+		"movies": {
+			"insert": &Pipeline{
+				In:  make(chan *string, 5),
+				Out: make(chan *string, 5),
+			},
+			// "update": updateMoviePipeline(accountMapper, db),
+			// "delete": deleteMoviePipeline(accountMapper, db)
+		},
+		"movies_provider_labels": {
+			"update": &Pipeline{
+				In:  make(chan *string, 5),
+				Out: make(chan *string, 5),
+			},
+			// "delete": deleteMovieProviderLabelPipeline(accountMapper, db),
+		},
+	}
+
+	for k, v := range improvedPipelines {
+		fmt.Printf("%v\n, %v\n", k, v)
+		for l, m := range v {
+			fmt.Printf("%v\n, %v\n", l, m)
+		}
+	}
 }

@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"runtime"
 )
 
 // int and float64 are the most commonly used:
+var w int64
 var x int
 var y float64
 var z int8 = -128
@@ -25,4 +27,8 @@ func main() {
 	fmt.Println("Some runtime related env variables:")
 	fmt.Printf("runtime.GOOS: %v\n", runtime.GOOS)
 	fmt.Printf("runtime.GOARCH: %v\n", runtime.GOARCH)
+	fmt.Printf("math.MaxInt64: %v", math.MaxInt64)
+	w = 9223372036854775807
+	fmt.Printf("w: %v", w)
+	fmt.Printf("math.MaxInt32 %v", math.MaxInt32)
 }
